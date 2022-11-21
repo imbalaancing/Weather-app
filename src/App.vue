@@ -1,11 +1,24 @@
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      city: '',
+    };
+  },
+  computed: {
+    cityName() {
+      return '<' + this.city + '>';
+    },
+  },
+};
+</script>
 
 <template>
   <div class="wrapper">
     <h1>Погодное приложение</h1>
-    <p>Узнать погоду в вашем городе:</p>
-    <input type="text" placeholder="Введите город" />
-    <button>Запросить погоду</button>
+    <p>Узнать погоду в {{ city == '' ? 'вашем городе' : cityName }}</p>
+    <input type="text" v-model="city" placeholder="Введите город" />
+    <button v-show="city != ''">Запросить погоду</button>
   </div>
 </template>
 
