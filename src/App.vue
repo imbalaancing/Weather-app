@@ -3,11 +3,23 @@ export default {
   data() {
     return {
       city: '',
+      error: '',
     };
   },
   computed: {
     cityName() {
       return '<' + this.city + '>';
+    },
+  },
+  methods: {
+    getWeather() {
+      if (this.city.trim().length < 2) {
+        this.error =
+          'Введите название города, который содержит более одного символа';
+        return false;
+      }
+
+      this.error = '';
     },
   },
 };
@@ -18,11 +30,16 @@ export default {
     <h1>Погодное приложение</h1>
     <p>Узнать погоду в {{ city == '' ? 'вашем городе' : cityName }}</p>
     <input type="text" v-model="city" placeholder="Введите город" />
-    <button v-show="city != ''">Запросить погоду</button>
+    <button v-show="city != ''" @click="getWeather()">Запросить погоду</button>
+    <p class="error">{{ error }}</p>
   </div>
 </template>
 
 <style scoped>
+.error {
+  color: red;
+}
+
 .wrapper {
   width: 900px;
   height: 500px;
